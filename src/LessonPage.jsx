@@ -14,7 +14,7 @@ export default function LessonPage() {
     const loadLesson = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/lessons/${id}`
+          `${import.meta.env.VITE_API_URL}/api/lessons/${id}`
         );
         setLesson(res.data);
       } catch (err) {
@@ -38,7 +38,7 @@ export default function LessonPage() {
       </div>
       {lesson.imageUrl && (
         <img
-          src={`http://localhost:5000${lesson.imageUrl}`}
+          src={`${import.meta.env.VITE_API_URL}${lesson.imageUrl}`}
           alt={lesson.title}
           style={{ width: "100%", height: 300, objectFit: "cover", borderRadius: "12px", marginBottom: "24px" }}
         />

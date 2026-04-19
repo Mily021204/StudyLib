@@ -15,7 +15,7 @@ export default function Dashboard() {
       if (!token) return;
 
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/me", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
           headers: { Authorization: token },
         });
         setUser(res.data);
@@ -26,7 +26,7 @@ export default function Dashboard() {
 
     const loadSubjects = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/subjects");
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/subjects`);
         setSubjects(res.data);
       } catch (err) {
         console.error("Error fetching subjects:", err);
@@ -38,10 +38,10 @@ export default function Dashboard() {
   }, []);
   const addSubject = async () => {
   try {
-    await axios.post("http://localhost:5000/api/subjects", { name });
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/subjects`, { name });
     setName("");
 
-    const res = await axios.get("http://localhost:5000/api/subjects");
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/subjects`);
     setSubjects(res.data);
   } catch (err) {
     console.error("Error adding subject:", err);
@@ -51,9 +51,9 @@ export default function Dashboard() {
   const deleteSubject = async (subjectId) => {
     if (window.confirm("Are you sure you want to delete this subject?")) {
       try {
-        const response = await axios.delete(`http://localhost:5000/api/subjects/${subjectId}`);
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/subjects/${subjectId}`);
         console.log("Delete response:", response);
-        const res = await axios.get("http://localhost:5000/api/subjects");
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/subjects`);
         setSubjects(res.data);
         alert("Subject deleted successfully");
       } catch (err) {
@@ -88,7 +88,7 @@ export default function Dashboard() {
           </div>
           <div className="hero-image">
             {user.profileUrl ? (
-              <img src={`http://localhost:5000${user.profileUrl}`} alt={user.name} />
+              <img src={`${import.meta.env.VITE_API_URL}${user.profileUrl}`} alt={user.name} />
             ) : (
               <div style={{ width: 300, height: 300, background: "rgba(255, 165, 0, 0.1)", borderRadius: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "#808080" }}>
                 No Profile Image

@@ -10,7 +10,7 @@ export default function Profile() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const backendUrl = "http://localhost:5000";
+  const backendUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (!token) {

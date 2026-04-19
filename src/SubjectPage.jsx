@@ -10,7 +10,7 @@ export default function SubjectPage() {
   const [imageFile, setImageFile] = useState(null);
   const nav = useNavigate();
   const invalidId = !id || id === "${id}" || id === "{id}";
-  const backendUrl = "http://localhost:5000";
+  const backendUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (!id || id === "${id}" || id === "{id}") return;
