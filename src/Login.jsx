@@ -18,7 +18,12 @@ export default function Login() {
       nav("/dashboard");
     } catch (err) {
       console.error(err);
-      const message = err.response?.data || err.message || "Login failed";
+      let message = "Login failed";
+      if (err.response?.data) {
+        message = typeof err.response.data === "string" ? err.response.data : JSON.stringify(err.response.data);
+      } else if (err.message) {
+        message = err.message;
+      }
       alert(message);
     }
   };

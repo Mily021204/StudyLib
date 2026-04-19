@@ -23,7 +23,12 @@ export default function Register() {
       nav("/dashboard");
     } catch (err) {
       console.error(err);
-      const message = err.response?.data || err.message || "Registration failed";
+      let message = "Registration failed";
+      if (err.response?.data) {
+        message = typeof err.response.data === "string" ? err.response.data : JSON.stringify(err.response.data);
+      } else if (err.message) {
+        message = err.message;
+      }
       alert(message);
     }
   };

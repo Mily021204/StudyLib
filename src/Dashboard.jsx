@@ -58,7 +58,13 @@ export default function Dashboard() {
         alert("Subject deleted successfully");
       } catch (err) {
         console.error("Error deleting subject:", err.response || err);
-        alert("Failed to delete subject: " + (err.response?.data?.error || err.message));
+        let errorMsg = "Failed to delete subject";
+        if (err.response?.data?.error) {
+          errorMsg = typeof err.response.data.error === "string" ? err.response.data.error : JSON.stringify(err.response.data.error);
+        } else if (err.response?.data) {
+          errorMsg = typeof err.response.data === "string" ? err.response.data : JSON.stringify(err.response.data);
+        }
+        alert(errorMsg);
       }
     }
   };
