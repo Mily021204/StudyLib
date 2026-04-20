@@ -9,10 +9,13 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
 
       localStorage.setItem("token", res.data.token);
       nav("/dashboard");
@@ -20,7 +23,10 @@ export default function Login() {
       console.error(err);
       let message = "Login failed";
       if (err.response?.data) {
-        message = typeof err.response.data === "string" ? err.response.data : JSON.stringify(err.response.data);
+        message =
+          typeof err.response.data === "string"
+            ? err.response.data
+            : JSON.stringify(err.response.data);
       } else if (err.message) {
         message = err.message;
       }
@@ -48,7 +54,6 @@ export default function Login() {
 
       <button onClick={handleLogin}>Login</button>
 
-      
       <p style={{ textAlign: "center", marginTop: "15px" }}>
         Don’t have an account?{" "}
         <Link to="/register" style={{ color: "#ffa500", fontWeight: "bold" }}>
